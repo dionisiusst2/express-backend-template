@@ -1,11 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv').config({ path: './config/config.env' });
+const connectDB = require('./utils/db');
+const errorHandler = require('./middleware/errorHandler');
 
 const hpp = require('hpp');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const slowDown = require('express-slow-down');
+const cors = require('cors');
 const morgan = require('morgan');
 const colors = require('colors');
 
@@ -44,8 +47,22 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Enable CORS
+app.use(cors());
+
+// init router
+const productRouter = require('./routes/products');
+
+// mount router
+app.use('/api/v1/products', productRouter);
+
+// use custom error handler
+app.use(errorHandler);
+
 const server = app.listen(port, () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${port}`.yellow
   );
 });
+
+connectDB();
