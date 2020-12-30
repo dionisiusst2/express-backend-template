@@ -6,12 +6,14 @@ const colors = require('colors');
 // Load model
 const Product = require('./models/Product');
 
+// Connect to database
+
+connectDB();
+
 // Read JSON File
 const products = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/products.json`, 'utf-8')
 );
-
-connectDB();
 
 const insertData = async () => {
   try {

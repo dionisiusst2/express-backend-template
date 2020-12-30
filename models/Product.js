@@ -20,11 +20,22 @@ const ProductSchema = new mongoose.Schema({
   },
   validBefore: {
     type: Date,
+    default: null,
   },
   isValid: {
     type: Boolean,
     default: true,
   },
 });
+
+ProductSchema.methods.cloneAttributes = function () {
+  const attributes = {
+    name: this.name,
+    price: this.price,
+    photo: this.photo,
+  };
+
+  return attributes;
+};
 
 module.exports = mongoose.model('Product', ProductSchema);

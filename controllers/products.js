@@ -45,16 +45,23 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
 // @route       PUT api/v1/products/:id
 // @access      Private, Admin only
 exports.updateProduct = asyncHandler(async (req, res, next) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+  // Update existing product and make it no longer valid
+  const deprecatedProduct = await deprecateProductById(req.params.id);
+
+  isProductExists(deprecatedProduct, next);
+
+  // Create a new product with deprecated product attributes
+  let newProduct = await Product.create(deprecatedProduct.cloneAttributes());
+
+  // Update the attributes on the new product
+  newProduct = await Product.findByIdAndUpdate(newProduct._id, req.body, {
     new: true,
     runValidators: true,
   });
 
-  isProductExists(product, next);
-
   res.status(200).json({
     success: true,
-    data: product,
+    data: newProduct,
   });
 });
 
@@ -62,17 +69,27 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 // @route       DELETE api/v1/products/:id
 // @access      Private, Admin only
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const deprecatedProduct = await deprecateProductById(req.params.id);
 
-  isProductExists(product, next);
-
-  await product.remove();
+  isProductExists(deprecatedProduct, next);
 
   res.status(200).json({
     success: true,
-    data: [],
+    data: deprecatedProduct,
   });
 });
+
+const deprecateProductById = async (id) => {
+  const updateField = {
+    validBefore: Date.now(),
+    isValid: false,
+  };
+
+  return await Product.findByIdAndUpdate(id, updateField, {
+    new: true,
+    runValidators: true,
+  });
+};
 
 const isProductExists = (product, next) => {
   if (!product) {
