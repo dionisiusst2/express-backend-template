@@ -4,7 +4,7 @@ const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Product name cannot be empty'],
-    min: [5, 'Product name must be at least 5 characters'],
+    minLength: [5, 'Product name must be at least 5 characters'],
   },
   price: {
     type: Number,

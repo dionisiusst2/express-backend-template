@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv').config({ path: './config/config.env' });
 const connectDB = require('./utils/db');
+const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/errorHandler');
 
 const hpp = require('hpp');
@@ -18,8 +19,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // mount Global Middleware
-// parse JSON and for POST and PUT request
+// parse JSON
 app.use(express.json());
+
+// parse cookie header
+app.use(cookieParser());
 
 // prevent NoSQL Injection on MongoDB
 app.use(mongoSanitize());
@@ -52,9 +56,11 @@ app.use(cors());
 
 // init router
 const productRouter = require('./routes/products');
+const authRouter = require('./routes/auth');
 
 // mount router
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/auth', authRouter);
 
 // use custom error handler
 app.use(errorHandler);
