@@ -7,7 +7,9 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route       GET /api/v1/products
 // @access      Public
 exports.getProducts = asyncHandler(async (req, res, next) => {
-  const products = await Product.find();
+  const products = await Product.find({
+    validBefore: undefined,
+  });
 
   res.status(200).json({
     success: true,
