@@ -10,8 +10,14 @@ const {
   uploadPhoto,
 } = require('../controllers/products');
 
-router.route('/').get(getProducts).post(createProduct);
-router.route('/:id').get(getProduct).put(updateProduct).delete(deleteProduct);
-router.route('/:id/photo').put(uploadPhoto);
+const { isAuth, isRole } = require('../middleware/auth');
+
+router.route('/').get(getProducts).post(isAuth, isRole('admin'), createProduct);
+router
+  .route('/:id')
+  .get(getProduct)
+  .put(isAuth, isRole('admin'), updateProduct)
+  .delete(isAuth, isRole('admin'), deleteProduct);
+router.route('/:id/photo').put(isAuth, isRole('admin'), uploadPhoto);
 
 module.exports = router;
