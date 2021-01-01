@@ -1,0 +1,20 @@
+[
+  {
+    "role": "admin",
+    "createdAt": "2020-12-30T13:57:11.604Z",
+    "_id": "5fec8745667f9236acb05bdb",
+    "name": "admin",
+    "password": "admin",
+    "email": "admin@gmail.com",
+    "__v": 0
+  },
+  {
+    "role": "user",
+    "createdAt": "2021-01-01T03:39:44.417Z",
+    "_id": "5fee9a0ba2cfe924bc61851f",
+    "name": "user",
+    "password": "user",
+    "email": "user@gmail.com",
+    "__v": 0
+  }
+]

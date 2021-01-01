@@ -1,0 +1,56 @@
+[
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febfefbcf242605e01d39d3",
+    "name": "chitato",
+    "price": 6500,
+    "__v": 0
+  },
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febff0ecf242605e01d39d4",
+    "name": "pringles",
+    "price": 20000,
+    "__v": 0
+  },
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febff34cf242605e01d39d5",
+    "name": "coca-cola",
+    "price": 4500,
+    "__v": 0
+  },
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febff42cf242605e01d39d6",
+    "name": "beng-beng",
+    "price": 3000,
+    "__v": 0
+  },
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febff4bcf242605e01d39d7",
+    "name": "mentos",
+    "price": 3500,
+    "__v": 0
+  },
+  {
+    "photo": "no-photo.jpg",
+    "createdAt": "2020-12-30T04:14:57.180Z",
+    "isValid": true,
+    "_id": "5febff53cf242605e01d39d8",
+    "name": "lays",
+    "price": 7000,
+    "__v": 0
+  }
+]
