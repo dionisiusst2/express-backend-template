@@ -2,6 +2,10 @@
 
 > Backend API Template using Express and MongoDB
 
+# API Documentation
+
+> See API documentation in https://documenter.getpostman.com/view/7326706/TVt2bP9G
+
 ## Usage
 
 Rename "config/.env" to "config/config.env" and update the values/settings to your own
