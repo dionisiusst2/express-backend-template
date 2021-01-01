@@ -52,9 +52,13 @@ exports.isGuest = asyncHandler(async (req, res, next) => {
 });
 
 exports.isRole = (...role) => {
-  const isAuthorized = role.includes(req.user.role);
+  return (req, res, next) => {
+    const isAuthorized = role.includes(req.user.role);
 
-  if (!isAuthorized) {
-    return next(new ErrorResponse(`Not authorized to access this page`, 401));
-  }
+    if (!isAuthorized) {
+      return next(new ErrorResponse(`Not authorized to access this page`, 401));
+    }
+
+    next();
+  };
 };

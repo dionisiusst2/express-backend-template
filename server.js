@@ -57,10 +57,12 @@ app.use(cors());
 // init router
 const productRouter = require('./routes/products');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 // mount router
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 
 // use custom error handler
 app.use(errorHandler);
