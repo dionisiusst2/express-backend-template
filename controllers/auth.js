@@ -87,6 +87,11 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   }
 
   await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    data: [],
+  });
 });
 
 // @desc        Reset password

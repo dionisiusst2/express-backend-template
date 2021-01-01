@@ -43,14 +43,5 @@
     "name": "mentos",
     "price": 3500,
     "__v": 0
-  },
-  {
-    "photo": "no-photo.jpg",
-    "createdAt": "2020-12-30T04:14:57.180Z",
-    "isValid": true,
-    "_id": "5febff53cf242605e01d39d8",
-    "name": "lays",
-    "price": 7000,
-    "__v": 0
   }
 ]
