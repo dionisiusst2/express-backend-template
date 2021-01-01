@@ -8,6 +8,7 @@ const {
   createUser,
   updateUser,
   uploadPhoto,
+  updatePassword,
 } = require('../controllers/users');
 
 const { isAuth, isRole } = require('../middleware/auth');
@@ -21,5 +22,6 @@ router
   .put(isRole('user'), updateUser);
 router.route('/:id').get(isRole('admin'), getUser);
 router.route('/photo').put(isRole('user'), uploadPhoto);
+router.route('/password').put(isRole('user'), updatePassword);
 
 module.exports = router;
