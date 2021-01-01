@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const asyncHandler = require('../middleware/asyncHandler');
 const ErrorResponse = require('../utils/errorResponse');
+const path = require('path');
 
 // @desc        Get all products
 // @route       GET /api/v1/products
@@ -22,7 +23,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 // @access      Public
 exports.getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
-
+  console.log(product._id);
   isProductExists(product, next);
 
   return res.status(200).json({
@@ -79,6 +80,61 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
     success: true,
     data: deprecatedProduct,
   });
+});
+
+// @desc        Upload product photo
+// @route       PUT api/v1/products/:id/photo
+// @access      Private, Admin only
+exports.uploadPhoto = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(
+      new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  if (!req.files) {
+    return next(new ErrorResponse(`No files were uploaded`, 400));
+  }
+  console.log(req.files);
+
+  let file = req.files.photo;
+
+  if (!file.mimetype.startsWith('image')) {
+    return next(new ErrorResponse(`Please upload an image file`, 400));
+  }
+
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `Please upload an image less than ${
+          process.env.MAX_FILE_UPLOAD / 1000
+        }Mb`
+      )
+    );
+  }
+
+  // Rename file name
+  file.name = `photo_${product.id}${path.parse(file.name).ext}`;
+
+  // Move file to directory
+  file.mv(
+    `${process.env.PRODUCT_PICTURE_UPLOAD_PATH}/${file.name}`,
+    async (err) => {
+      if (err) {
+        console.error(err);
+        return next(new ErrorResponse(`Problem with fileupload`, 500));
+      }
+
+      await Product.findByIdAndUpdate(product._id, { photo: file.name });
+
+      res.status(200).json({
+        success: true,
+        data: file.name,
+      });
+    }
+  );
 });
 
 const deprecateProductById = async (id) => {

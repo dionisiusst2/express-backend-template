@@ -1,6 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv').config({ path: './config/config.env' });
 const connectDB = require('./utils/db');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -24,6 +27,12 @@ app.use(express.json());
 
 // parse cookie header
 app.use(cookieParser());
+
+// Set static folder
+app.use(fileUpload());
+
+// Set static folder for uploading photo
+app.use(express.static(path.join(__dirname, 'public')));
 
 // prevent NoSQL Injection on MongoDB
 app.use(mongoSanitize());

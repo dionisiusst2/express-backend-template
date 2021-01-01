@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Password cannot be empty'],
     select: false,
   },
+  photo: {
+    type: String,
+    default: 'no-photo.jpg',
+  },
   role: {
     type: String,
     enum: ['user'],
