@@ -26,4 +26,8 @@ npm run dev
 npm start
 ```
 
+## Available routes
+
+See [here](https://documenter.getpostman.com/view/7326706/TVt2bP9G) for all available routes and documentation.
+
 - Version: 1.0.0
